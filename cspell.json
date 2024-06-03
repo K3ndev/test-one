@@ -6,6 +6,7 @@
     "commitlint",
     "immer",
     "pnpm",
+    "supabase",
     "tanstack",
     "Todos",
     "zustand"
