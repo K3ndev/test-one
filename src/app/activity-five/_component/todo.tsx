@@ -1,5 +1,5 @@
 'use client';
-import { useTodoStore } from '@/app/_store/activity-five-store';
+import { useTodoStore } from '@/app/activity-five/_store/activity-five-store';
 import { useState } from 'react';
 
 export function TodoItem({ isCheck, id, todo }: { isCheck: boolean; id: number; todo: string }) {

@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
+import { AddTodo } from './_actions/addTodo-action';
 import SignOutButton from './_component/signOutButton';
+import { TodoItem } from './_component/todo';
 import { createClient } from './utils/supabase/server';
 
 // Activity 8: (Optional) Create a simple to-do list application using Supabase (feel free to re-use your answer in Activity 1, and just save the to-do list state in the database)
@@ -16,11 +18,27 @@ export default async function ActivityEight() {
     redirect('/login');
   }
 
+  const { data: todos } = await supabase.from('todos').select('*');
+
   return (
     <main>
       <section className="container">
-        <p>hello</p>
         <SignOutButton />
+        <ul>
+          {todos?.map((item, index: number) => {
+            return (
+              <li key={index} className="mb-1 flex gap-2">
+                <TodoItem id={item.id} isCheck={item.isCheck} todo={item.todo} />
+              </li>
+            );
+          })}
+        </ul>
+        <form action={AddTodo}>
+          <input type="text" name="newTodo" placeholder="add new todo here" />
+          <button type="submit" className="bg-red-800 text-black">
+            submit
+          </button>
+        </form>
       </section>
     </main>
   );

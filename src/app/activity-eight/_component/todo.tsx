@@ -1,12 +1,13 @@
 'use client';
-import { useTodoStore } from '@/app/_store/activity-eight-store';
+
 import { useState } from 'react';
+import { checkAction } from './check-action';
+import { editTodo } from './editTodo';
+import { deleteTodo } from './removeTodo-action';
 
 export function TodoItem({ isCheck, id, todo }: { isCheck: boolean; id: number; todo: string }) {
-  const { toggleCheck, removeTodo, editTodo } = useTodoStore();
   const [editMode, setEditMode] = useState(false);
   const [editedTodo, setEditedTodo] = useState(todo);
-  // const todoDataLocal = localStorage.getItem('todo-data');
 
   const handleEdit = () => {
     setEditMode(true);
@@ -21,8 +22,8 @@ export function TodoItem({ isCheck, id, todo }: { isCheck: boolean; id: number; 
     setEditedTodo(todo);
   };
 
-  const handleSaveEdit = (targetId: number, newTodo: string) => {
-    editTodo(targetId, newTodo);
+  const handleSaveEdit = async (targetId: number, newTodo: string) => {
+    await editTodo(targetId, newTodo);
     setEditMode(false);
   };
 
@@ -31,8 +32,8 @@ export function TodoItem({ isCheck, id, todo }: { isCheck: boolean; id: number; 
       <input
         type="checkbox"
         checked={isCheck}
-        onChange={() => {
-          toggleCheck(id);
+        onChange={async () => {
+          checkAction(id, isCheck);
         }}
       />
       {editMode ? (
@@ -60,12 +61,7 @@ export function TodoItem({ isCheck, id, todo }: { isCheck: boolean; id: number; 
         </button>
       )}
 
-      <button
-        className="bg-red-800 text-black"
-        onClick={() => {
-          removeTodo(id);
-        }}
-      >
+      <button className="bg-red-800 text-black" onClick={async () => deleteTodo(id)}>
         remove
       </button>
     </>

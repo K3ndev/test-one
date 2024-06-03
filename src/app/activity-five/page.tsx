@@ -1,8 +1,8 @@
 'use client';
 
 import { useState, type ChangeEvent, type FormEvent } from 'react';
-import { useTodoStore } from '../_store/activity-five-store';
 import { TodoItem } from './_component/todo';
+import { useTodoStore } from './_store/activity-five-store';
 
 // Activity 5: Create a basic to-do list.
 // 1. Check and uncheck list item.
